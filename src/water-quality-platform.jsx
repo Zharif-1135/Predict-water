@@ -95,6 +95,20 @@ function WaterQualityPlatform() {
     setHistoricalData(updatedData);
   };
 
+  const handlePopulasiChange = (tahun, value) => {
+    const updatedData = historicalData.map(d =>
+      d.tahun === tahun ? { ...d, populasi: parseInt(value) || 0 } : d
+    );
+    setHistoricalData(updatedData);
+  };
+
+  const handleKonsumsiChange = (tahun, value) => {
+    const updatedData = historicalData.map(d =>
+      d.tahun === tahun ? { ...d, konsumsi: parseInt(value) || 0 } : d
+    );
+    setHistoricalData(updatedData);
+  };
+
   const latestData = historicalData[historicalData.length - 1];
 
   useEffect(() => {
@@ -168,14 +182,13 @@ function WaterQualityPlatform() {
       )}
 
       <header className="bg-blue-900 text-white shadow-lg">
-        {/* ... (Header tidak berubah) ... */}
          <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <Droplets className="h-8 w-8" />
               <div>
-                <h1 className="text-2xl font-bold">PDAM Tirta Mon Pasee</h1>
-                <p className="text-blue-200">Platform Prediksi Kualitas Air</p>
+                <h1 className="text-2xl font-bold">Universitas Malikussaleh</h1>
+                <p className="text-blue-200">Platform Prediksi Kualitas Sungai</p>
               </div>
             </div>
             <div className="text-right">
@@ -187,7 +200,6 @@ function WaterQualityPlatform() {
       </header>
 
       <nav className="bg-white shadow-md">
-       {/* ... (Navigasi tidak berubah) ... */}
        <div className="container mx-auto px-4">
           <div className="flex space-x-8">
             {[{ id: 'dashboard', label: 'Dashboard', icon: BarChart }, { id: 'prediction', label: 'Prediksi Sumur', icon: Droplets }, { id: 'supply', label: 'Durasi Supply', icon: TrendingUp }, { id: 'population', label: 'Analisis Populasi', icon: Users }].map(({ id, label, icon: Icon }) => (
@@ -203,7 +215,6 @@ function WaterQualityPlatform() {
       <main className="container mx-auto px-4 py-8">
         {selectedTab === 'dashboard' && (
           <div className="space-y-8">
-            {/* ... (Kartu statistik tidak berubah, tapi data dinamis) ... */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="bg-white rounded-lg shadow-md p-6">
                 <div className="flex items-center justify-between">
@@ -244,13 +255,12 @@ function WaterQualityPlatform() {
             </div>
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="px-6 py-4 border-b flex justify-between items-center">
-                <h3 className="text-lg font-semibold text-gray-900">Data Kualitas Air Sumur</h3>
+                <h3 className="text-lg font-semibold text-gray-900">Data Kualitas Air Sungai</h3>
                 <button onClick={() => setShowAddWellModal(true)} className="flex items-center space-x-2 bg-blue-600 text-white px-3 py-1.5 rounded-md hover:bg-blue-700">
                   <Plus size={16} />
                   <span className="text-sm font-medium">Tambah Sumur</span>
                 </button>
               </div>
-              {/* Box tabel dengan gulir */}
               <div className="overflow-x-auto max-h-[400px] overflow-y-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50 sticky top-0">
@@ -310,7 +320,6 @@ function WaterQualityPlatform() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-6">Prediksi Kelayakan Sumur Baru</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Input form dengan parameter baru */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {Object.keys(predictionInput).map(key => (
                     <div key={key}>
@@ -325,9 +334,7 @@ function WaterQualityPlatform() {
                     </div>
                   ))}
                 </div>
-                {/* Hasil prediksi */}
                 <div className="space-y-6">
-                  {/* ... (Hasil Prediksi SVM tidak berubah) ... */}
                   <div className="bg-gray-50 rounded-lg p-6">
                     <h4 className="text-lg font-semibold text-gray-900 mb-4">Hasil Prediksi SVM</h4>
                     <div className="space-y-4">
@@ -379,7 +386,6 @@ function WaterQualityPlatform() {
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
-                {/* ... (Kartu Prediksi Durasi & Rekomendasi tidak berubah) ... */}
                 <div className="space-y-6">
                   <div className="bg-orange-50 rounded-lg p-6">
                     <div className="flex items-center space-x-3 mb-4">
@@ -403,21 +409,19 @@ function WaterQualityPlatform() {
 
               <div className="mt-8 bg-white rounded-lg ">
                 <div className="flex justify-between items-center px-6 pt-4 mb-4">
-                  <h4 className="text-md font-semibold text-gray-800">Data Historis & Input Supply</h4>
+                  <h4 className="text-md font-semibold text-gray-800">Data Historis & Input</h4>
                    <button onClick={handleAddHistoricalData} className="flex items-center space-x-2 bg-blue-600 text-white px-3 py-1.5 rounded-md hover:bg-blue-700">
                     <Plus size={16} />
                     <span className="text-sm font-medium">Tambah Tahun</span>
                   </button>
                 </div>
-                 {/* Box tabel historis dengan gulir */}
                 <div className="overflow-x-auto max-h-[350px] overflow-y-auto">
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50 sticky top-0">
                       <tr>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tahun</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Populasi</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Konsumsi (m³)</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Supply (m³)</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Input Populasi</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Input Konsumsi (m³)</th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Input Supply (m³)</th>
                       </tr>
                     </thead>
@@ -425,9 +429,24 @@ function WaterQualityPlatform() {
                       {historicalData.map((item) => (
                         <tr key={item.tahun}>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{item.tahun}</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.populasi.toLocaleString()}</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.konsumsi.toLocaleString()}</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.supply.toLocaleString()}</td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <input
+                              type="number"
+                              value={item.populasi}
+                              onChange={(e) => handlePopulasiChange(item.tahun, e.target.value)}
+                              className="w-full px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                              step="1000"
+                            />
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <input
+                              type="number"
+                              value={item.konsumsi}
+                              onChange={(e) => handleKonsumsiChange(item.tahun, e.target.value)}
+                              className="w-full px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                              step="1000"
+                            />
+                          </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <input
                               type="number"
@@ -456,7 +475,6 @@ function WaterQualityPlatform() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">Proyeksi Populasi Aceh Utara</label>
                     <input type="number" value={populationInput} onChange={(e) => setPopulationInput(parseInt(e.target.value) || 0)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" step="1000" />
                   </div>
-                   {/* Grafik Pie baru */}
                   <div className='bg-gray-50 p-4 rounded-lg'>
                     <h4 className="text-md font-semibold text-gray-800 mb-4 text-center">Visualisasi Kapasitas Supply</h4>
                     <ResponsiveContainer width="100%" height={250}>
@@ -471,7 +489,6 @@ function WaterQualityPlatform() {
                   </div>
                 </div>
                 <div className="space-y-6">
-                  {/* ... (Kartu Analisis Kapasitas tidak berubah) ... */}
                    <div className={`rounded-lg p-6 ${populationCapacity.sufficient ? 'bg-green-50' : 'bg-red-50'}`}>
                     <div className="flex items-center space-x-3 mb-4">
                       {populationCapacity.sufficient ? (<CheckCircle className="h-6 w-6 text-green-600" />) : (<AlertTriangle className="h-6 w-6 text-red-600" />)}
@@ -507,7 +524,6 @@ function WaterQualityPlatform() {
       </main>
 
       <footer className="bg-gray-800 text-white py-8 mt-12">
-      {/* ... (Footer diperbarui dengan parameter baru) ... */}
        <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
