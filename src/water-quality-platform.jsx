@@ -202,7 +202,7 @@ function WaterQualityPlatform() {
       <nav className="bg-white shadow-md">
        <div className="container mx-auto px-4">
           <div className="flex space-x-8">
-            {[{ id: 'dashboard', label: 'Dashboard', icon: BarChart }, { id: 'prediction', label: 'Prediksi Sumur', icon: Droplets }, { id: 'supply', label: 'Durasi Supply', icon: TrendingUp }, { id: 'population', label: 'Analisis Populasi', icon: Users }].map(({ id, label, icon: Icon }) => (
+            {[{ id: 'dashboard', label: 'Dashboard', icon: BarChart }, { id: 'prediction', label: 'Prediksi Sungai', icon: Droplets }, { id: 'supply', label: 'Durasi Supply', icon: TrendingUp }, { id: 'population', label: 'Analisis Populasi', icon: Users }].map(({ id, label, icon: Icon }) => (
               <button key={id} onClick={() => setSelectedTab(id)} className={`flex items-center space-x-2 px-4 py-4 border-b-2 transition-colors ${selectedTab === id ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-600 hover:text-blue-600'}`}>
                 <Icon className="h-4 w-4" />
                 <span className="font-medium">{label}</span>
